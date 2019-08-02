@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.product.dto.CategoryAnalyticsAnalysisDto;
+import com.product.dto.ProductAnalyticsAnalysisDto;
 import com.product.entity.Category;
-import com.product.entity.CategoryAnalytics;
 import com.product.entity.Products;
 import com.product.entity.ProductsAnalytics;
 import com.product.service.ProductService;
@@ -27,30 +28,30 @@ public class ProductController {
 		
 	}
 	
-	@GetMapping("/{categoryId}/products")
-	public ResponseEntity<List<Products>> getAllProducts(@PathVariable() Long categoryId){
-		return productService.getAllProducts(categoryId);
+	@GetMapping("/{categoryId}/user/{userId}/products")
+	public ResponseEntity<List<Products>> getAllProducts(@PathVariable("categoryId") Long categoryId,@PathVariable("userId") Long userId){
+		return productService.getAllProducts(categoryId,userId);
 		}
 	
-	@GetMapping("/{categoryId}/products/{productId}")
-	public ResponseEntity<Products> getProduct(Long productId){
-		return productService.getProduct(productId);
+	@GetMapping("/{categoryId}/user/{userId}/products/{productId}")
+	public ResponseEntity<Products> getProduct(@PathVariable("categoryId") Long categoryId,@PathVariable("productId")Long productId, @PathVariable("userId") Long userId){
+		return productService.getProduct(categoryId,userId,productId);
 		}
 	
 	
 	@GetMapping("/analytics")
-	public ResponseEntity<List<CategoryAnalytics>> getCategorysAnalytics(){
+	public ResponseEntity<List<CategoryAnalyticsAnalysisDto>> getCategorysAnalytics(){
 		return productService.getCategorysAnalytics();
 		}
 	
 	@GetMapping("/analytics/{categoryId}/products")
-	public ResponseEntity<List<ProductsAnalytics>> getCategorysProductsAnalytics(Long categoryId){
+	public ResponseEntity<List<ProductAnalyticsAnalysisDto>> getCategorysProductsAnalytics(Long categoryId){
 		return productService.getCategorysProductsAnalytics(categoryId);
 		}
 	
 	
-	@GetMapping("/analytics/{categoryId}/products/{productId}")
-	public ResponseEntity<ProductsAnalytics> getProductsAnalytics(Long productId){
+	@GetMapping("/analytics/products/{productId}")
+	public ResponseEntity<List<ProductAnalyticsAnalysisDto>> getProductsAnalytics(Long productId){
 		return productService.getProductsAnalytics(productId);
 		
 	}

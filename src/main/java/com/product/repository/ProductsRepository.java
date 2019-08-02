@@ -5,15 +5,25 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.base.Optional;
 import com.product.entity.Products;
+import com.product.entity.ProductsAnalytics;
 
 @Repository
 public interface ProductsRepository extends JpaRepository<Products, Long> {
 	
-//	@Query("SELECT u FROM Products u WHERE u.category_id = :categoryId")
-//	public List<Products> getPoductsByCategory(@Param("categoryId") Long categoryId);
+	@Query("SELECT u FROM Products u WHERE u.category.categoryId = :categoryId")
+	public List<Products> getPoductsByCategory(@Param("categoryId") Long categoryId);
+	
+	
+
+	
+	
+//	@Query("SELECT * FROM products u WHERE u.category_id = ?1" nativeQuery = true)
+//	public List<Products> getPoductsByCategory( String categoryId);
 	
 
 }

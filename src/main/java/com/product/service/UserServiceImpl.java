@@ -1,5 +1,6 @@
 package com.product.service;
 
+import org.omg.CORBA.UserException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.product.dto.UserDetailsDto;
 import com.product.entity.UserDetails;
+import com.product.exceptions.UserDeatilsException;
 import com.product.repository.UserDetailsRepository;
 
 @Service
@@ -27,9 +29,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<String> login(String userName, String password) {
-		userDetailsRepository.findByUserNameAndPassword(userName, password);
+		
+		if(userDetailsRepository.findByUserNameAndPassword(userName, password).getAddress().equals(null))
+					throw new UserDeatilsException("user details are in correct");
 
-		return ResponseEntity.ok().body("succsessfully logined");
+					
+					return ResponseEntity.ok().body("succsessfully logined");
 	}
 
 }

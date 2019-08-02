@@ -22,16 +22,16 @@ public class ProductsAnalytics {
 	private Long productAnalyticsId;
 	private Long viewCount;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "products_id")
 	private Products products;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserDetails userDetails;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 

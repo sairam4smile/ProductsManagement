@@ -27,11 +27,11 @@ public class CategoryAnalytics {
 	private Long CategoryAnalyticsId;
 	private Long viewCount;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserDetails userDetails;
 

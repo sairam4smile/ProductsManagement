@@ -27,7 +27,7 @@ public class Category implements Serializable {
 	private String categoryName;
 	private String categoryDiscription;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	private List<Products> products;
 
 
