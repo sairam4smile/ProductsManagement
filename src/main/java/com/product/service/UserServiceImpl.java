@@ -1,6 +1,5 @@
 package com.product.service;
 
-import org.omg.CORBA.UserException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<String> registration(UserDetailsDto userDetailsDto) {
+		
+		if(userDetailsRepository.findByUserName(userDetailsDto.getUserName()).isPresent())
+			throw new UserDeatilsException(" user name is already existed");
 
 		UserDetails userDetails = new UserDetails();
 		BeanUtils.copyProperties(userDetailsDto, userDetails);
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<String> login(String userName, String password) {
 		
-		if(userDetailsRepository.findByUserNameAndPassword(userName, password).getAddress().equals(null))
+		if(!userDetailsRepository.findByUserNameAndPassword(userName, password).isPresent())
 					throw new UserDeatilsException("user details are in correct");
 
 					

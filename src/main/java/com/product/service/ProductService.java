@@ -8,12 +8,11 @@ import com.product.dto.CategoryAnalyticsAnalysisDto;
 import com.product.dto.ProductAnalyticsAnalysisDto;
 import com.product.entity.Category;
 import com.product.entity.Products;
-import com.product.entity.ProductsAnalytics;
 
 public interface ProductService {
 	
 	
-	public ResponseEntity<List<Category>> AllCategorys();
+	public ResponseEntity<List<Category>> allCategorys();
 	public ResponseEntity<List<Products>> getAllProducts(Long categoryId,Long userId);
 	public ResponseEntity<Products> getProduct(Long categoryId,Long userId,Long productId);
 	public ResponseEntity<List<CategoryAnalyticsAnalysisDto>> getCategorysAnalytics();

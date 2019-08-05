@@ -1,22 +1,19 @@
 
 package com.product.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.product.entity.ProductsAnalytics;
-import com.product.entity.Products;
-import java.util.List;
-
 import com.google.common.base.Optional;
-import com.product.entity.Category;
+import com.product.entity.ProductsAnalytics;
 
 @Repository
 public interface ProductsAnalyticsRepository extends JpaRepository<ProductsAnalytics, Long> {
 	
-	//List<ProductsAnalytics> findByCategory(Category category);
 	
 	@Query("SELECT u FROM ProductsAnalytics u WHERE u.products.productId = :productId and  u.userDetails.userId = :userId")
 	public Optional<ProductsAnalytics> countOfProductsHits(@Param("productId")Long productId, @Param("userId")Long userId);

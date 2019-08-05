@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 	Products products;
 
 	@Override
-	public ResponseEntity<List<Category>> AllCategorys() {
+	public ResponseEntity<List<Category>> allCategorys() {
 
 		return new ResponseEntity<>(categoryRepository.findAll(), HttpStatus.OK);
 	}
@@ -49,8 +49,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ResponseEntity<List<Products>> getAllProducts(Long categoryId, Long userId) {
 
-//		System.out.println("categoryId= " + categoryId);
-//		System.out.println("userId= " + userId);
 
 		if (!userDetailsRepository.findById(userId).isPresent())
 			throw new UserDeatilsException("user not existed");
@@ -80,7 +78,8 @@ public class ProductServiceImpl implements ProductService {
 			categoryAnalytics.setUserDetails(userDetails);
 			categoryAnalyticsRepository.save(categoryAnalytics);
 		}
-
+	
+		
 		return new ResponseEntity<>(productsRepository.getPoductsByCategory(categoryId), HttpStatus.OK);
 
 	}
@@ -91,11 +90,16 @@ public class ProductServiceImpl implements ProductService {
 		if (!userDetailsRepository.findById(userId).isPresent())
 			throw new UserDeatilsException("user not existed");
 
-		if (!productsRepository.findById(productId).isPresent())
-			throw new UserDeatilsException("product not existed");
+		
 		
 		if (!categoryRepository.findById(categoryId).isPresent())
 			throw new UserDeatilsException("category not existed");
+		
+		
+
+		java.util.Optional<Products> product = productsRepository.findById(productId);
+		if(!product.isPresent())
+			throw new UserDeatilsException("prooduct not existed");
 
 		userDetails = new UserDetails();
 		userDetails.setUserId(userId);
@@ -123,8 +127,10 @@ public class ProductServiceImpl implements ProductService {
 			productsAnalyticsRepository.save(productsAnalyticsSave);
 
 		}
-
-		return new ResponseEntity<>(productsRepository.findById(productId).get(), HttpStatus.ACCEPTED);
+		
+		
+		
+		return new ResponseEntity<>(product.get(), HttpStatus.ACCEPTED);
 	}
 
 	@Override

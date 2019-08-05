@@ -13,7 +13,6 @@ import com.product.dto.CategoryAnalyticsAnalysisDto;
 import com.product.dto.ProductAnalyticsAnalysisDto;
 import com.product.entity.Category;
 import com.product.entity.Products;
-import com.product.entity.ProductsAnalytics;
 import com.product.service.ProductService;
 
 @RestController
@@ -24,7 +23,7 @@ public class ProductController {
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Category>> AllCategorys(){
-		return productService.AllCategorys();
+		return productService.allCategorys();
 		
 	}
 	
